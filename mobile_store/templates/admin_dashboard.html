@@ -1,0 +1,40 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Admin Dashboard</title>
+	<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+	<nav>
+		<span>Welcome, Admin: {{ admin }}</span>
+		<a href="{{ url_for('admin_logout') }}">Logout</a>
+	</nav>
+	<h2>All Orders</h2>
+	{% if orders %}
+	<table>
+		<tr>
+			<th>Order ID</th>
+			<th>Username</th>
+			<th>Name</th>
+			<th>Phone</th>
+			<th>Address</th>
+			<th>Total</th>
+		</tr>
+		{% for order in orders %}
+		<tr>
+			<td>{{ order['id'] }}</td>
+			<td>{{ order['username'] }}</td>
+			<td>{{ order['name'] }}</td>
+			<td>{{ order['phone'] }}</td>
+			<td>{{ order['address'] }}</td>
+			<td>₹{{ order['total'] }}</td>
+		</tr>
+		{% endfor %}
+	</table>
+	{% else %}
+	<p>No orders found.</p>
+	{% endif %}
+</body>
+</html>

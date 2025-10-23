@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Checkout</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background: #f5f5f5;
+        }
+        .checkout-container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 500px;
+            margin: auto;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 10px;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #28a745;
+            color: white;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+        }
+        button:hover {
+            background: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="checkout-container">
+        <h2>Checkout</h2>
+        <form method="POST" action="{{ url_for('process_payment') }}">
+              <label for="name">Name:</label>
+              <input type="text" name="name" required>
+
+              <label for="phone">Phone:</label>
+              <input type="text" name="phone" required>
+
+              <label for="address">Address:</label>
+              <input type="text" name="address" required>
+
+              <label for="card">Card Number:</label>
+              <input type="text" name="card" required>
+
+              <label for="expiry">Expiry Date:</label>
+              <input type="text" name="expiry" placeholder="MM/YY" required>
+
+              <label for="cvv">CVV:</label>
+              <input type="password" name="cvv" required>
+
+              <button type="submit">Pay Now</button>
+        </form>
+        <div class="mb-4">
+            <h5 class="mb-3">Your Products</h5>
+            <div class="row">
+                {% for item in cart %}
+                <div class="col-6 col-md-4 mb-3">
+                    <div class="card h-100 text-center border-primary">
+                        <img src="{{ url_for('static', filename='images/' ~ item['image']) }}" class="card-img-top" style="height:120px;width:120px;object-fit:contain;margin:auto;" alt="{{ item['name'] }}">
+                        <div class="card-body p-2">
+                            <div class="fw-bold small">{{ item['name'] }}</div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>
